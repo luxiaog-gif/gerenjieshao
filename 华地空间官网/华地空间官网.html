@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>华地空间 | 城乡空间资源大数据运营服务商</title>
+<meta name="description" content="重庆华地空间科技有限公司，不动产服务和咨询顾问机构。业务涵盖国土空间数据服务、土地价值运营与推介、城市数智招商、土地利用咨询。">
+<script>
+/* 尽早应用主题，避免刷新时闪白 */
+(function () {
+  try {
+    var t = localStorage.getItem('huadi_theme');
+    if (t !== 'dark' && t !== 'light') {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+})();
+</script>
+<style>
+:root{
+  --blue:#1e40af; --blue-d:#1e3a8a; --blue-l:#2563eb;
+  --orange:#c2410c;
+  --ink:#1c2024; --muted:#6b7280; --line:#e3e6ea;
+  --bg:#f6f7f9; --card:#ffffff; --max:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+/* 滚动入场（JS 启用时才生效，保证无脚本环境下内容照常可见） */
+.js-on .rv{opacity:0;transform:translateY(18px)}
+.js-on .rv.in{opacity:1;transform:none;
+  transition:opacity .62s cubic-bezier(.22,.61,.36,1),transform .62s cubic-bezier(.22,.61,.36,1)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif;
+  font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+
+.hd{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);
+  border-bottom:1px solid var(--line);
+  transition:box-shadow .25s,background .25s}
+.hd::before{content:"";position:absolute;left:0;top:0;height:2px;width:var(--p,0%);z-index:2;
+  background:linear-gradient(90deg,#1e3a8a,#2563eb 58%,#f59e0b)}
+.hd.scrolled{background:rgba(255,255,255,.97);box-shadow:0 4px 20px rgba(20,26,46,.09)}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:600;color:var(--blue-d)}
+.logo i{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  display:inline-block;position:relative;flex:none}
+.logo i::after{content:"";position:absolute;inset:0;margin:auto;width:12px;height:12px;
+  border:2px solid #fff;border-radius:3px;transform:rotate(45deg)}
+.logo small{display:block;font-size:11px;font-weight:400;color:var(--muted);letter-spacing:1px}
+nav{display:flex;gap:4px;align-items:center;margin-left:auto}
+nav a{padding:8px 14px;border-radius:8px;font-size:14.5px;color:#374151;cursor:pointer;
+  position:relative;transition:background .18s,color .18s,transform .18s}
+nav a:hover{background:#f0f2f5;color:var(--blue-d)}
+nav a:active{transform:translateY(1px)}
+nav a.on{color:var(--blue-l);font-weight:600;background:#eff5ff}
+nav a.on::after{content:"";position:absolute;left:14px;right:14px;bottom:3px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,#2563eb,#7dd3fc);animation:navin .32s cubic-bezier(.22,.61,.36,1)}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:8px;margin-left:auto;
+  width:40px;height:34px;cursor:pointer;font-size:16px;color:var(--ink)}
+@media(max-width:860px){
+  .burger{display:block}
+  nav{position:absolute;top:64px;left:0;right:0;margin-left:0;background:var(--card);
+    border-bottom:1px solid var(--line);
+    flex-direction:column;align-items:stretch;padding:8px;display:none}
+  nav.open{display:flex}
+  nav a{padding:12px 14px}
+}
+
+.hero{position:relative;overflow:hidden;color:#fff;padding:72px 0 64px;
+  background:linear-gradient(135deg,#13265e 0%,#1e3a8a 55%,#2563eb 100%)}
+.hero>.wrap,.sub-hero>.wrap{position:relative;z-index:3}
+.hero h1{font-size:34px;line-height:1.35;margin:0 0 16px;font-weight:600}
+.hero p{font-size:15.5px;opacity:.92;margin:0 0 26px;max-width:640px}
+.hero .lead{font-size:13px;letter-spacing:3px;opacity:.75;margin-bottom:14px}
+.sub-hero{position:relative;overflow:hidden;color:#fff;padding:56px 0 48px;
+  background:linear-gradient(135deg,#13265e 0%,#1e3a8a 55%,#2563eb 100%)}
+.sub-hero h1{font-size:30px;margin:0 0 14px;font-weight:600}
+.sub-hero p{font-size:15.5px;opacity:.92;margin:0;max-width:680px}
+.sub-hero .lead{font-size:13px;letter-spacing:3px;opacity:.75;margin-bottom:14px}
+.btn{display:inline-block;padding:11px 26px;border-radius:8px;font-size:14.5px;cursor:pointer;border:1px solid transparent;
+  position:relative;overflow:hidden;transition:background .18s,color .18s,transform .18s,border-color .18s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;opacity:0;pointer-events:none;
+  transform:skewX(-18deg);background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent)}
+.btn:hover::after{animation:shine .9s ease}
+.btn-s:hover::after,.btn-g:hover::after{background:linear-gradient(100deg,transparent,rgba(30,58,138,.18),transparent)}
+.btn-s{background:#fff;color:var(--blue-d);font-weight:600}
+.btn-s:hover{background:#eaf0ff}
+.btn-o{border-color:rgba(255,255,255,.5);color:#fff}
+.btn-o:hover{background:rgba(255,255,255,.12)}
+.btn-p{background:var(--blue-l);color:#fff;font-weight:600}
+.btn-p:hover{background:#1d4ed8}
+.hero-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:46px}
+.hero-stats div{border-left:2px solid rgba(255,255,255,.28);padding-left:14px}
+.hero-stats b{display:block;font-size:24px;font-weight:600}
+.hero-stats span{font-size:12.5px;opacity:.8}
+@media(max-width:860px){.hero h1{font-size:26px}.sub-hero h1{font-size:24px}.hero-stats{grid-template-columns:repeat(2,1fr)}}
+
+.view{display:none}
+.view.active{display:block;animation:viewin .42s cubic-bezier(.22,.61,.36,1)}
+section{padding:64px 0}
+.sec-h{text-align:center;margin-bottom:38px}
+.sec-h .k{font-size:12.5px;letter-spacing:2px;color:var(--blue-l);font-weight:600}
+.sec-h h2{font-size:26px;margin:8px 0 10px;font-weight:600}
+.sec-h p{color:var(--muted);font-size:14.5px;margin:0}
+.white{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;
+  position:relative;overflow:hidden;
+  transition:transform .24s cubic-bezier(.22,.61,.36,1),box-shadow .24s,border-color .24s,
+    background-color .3s,color .3s}
+.card::before{content:"";position:absolute;left:0;top:0;height:2px;width:100%;z-index:1;
+  background:linear-gradient(90deg,#1e3a8a,#2563eb,#60a5fa);
+  transform:scaleX(0);transform-origin:left;transition:transform .34s cubic-bezier(.22,.61,.36,1)}
+.card:hover{transform:translateY(-4px);border-color:#c7d4f5;box-shadow:0 12px 28px rgba(30,58,138,.11)}
+.card:hover::before{transform:scaleX(1)}
+.card .no{font-size:12px;font-weight:600;letter-spacing:1px;color:var(--blue-l)}
+.card h3{margin:10px 0 8px;font-size:17px;font-weight:600}
+.card p{margin:0;font-size:14px;color:#4b5563}
+.card ul{margin:12px 0 0;padding-left:18px;font-size:13.5px;color:#4b5563}
+.card li{margin-bottom:6px}
+.tag{display:inline-block;font-size:12px;padding:3px 10px;border-radius:20px;background:#eff5ff;color:var(--blue-l);margin:0 6px 6px 0}
+@media(max-width:860px){.grid3,.grid2{grid-template-columns:1fr}}
+
+.chain{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch}
+.ch{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center;
+  transition:transform .22s cubic-bezier(.22,.61,.36,1),box-shadow .22s,border-color .22s,
+    background-color .3s,color .3s}
+.ch:hover{transform:translateY(-3px);border-color:#c7d4f5;box-shadow:0 10px 22px rgba(30,58,138,.10)}
+.ch b{position:relative}
+.ch b{display:block;font-size:16px;margin-bottom:4px}
+.ch span{font-size:12.5px;color:var(--muted)}
+@media(max-width:860px){.chain{grid-template-columns:1fr 1fr}}
+
+.tl{border-left:2px solid #dbe3f5;padding-left:24px;margin-left:8px}
+.tl .it{position:relative;padding-bottom:26px}
+.tl .it::before{content:"";position:absolute;left:-31px;top:6px;width:12px;height:12px;
+  border-radius:50%;background:#fff;border:3px solid var(--blue-l)}
+.tl .it::after{content:"";position:absolute;left:-31px;top:6px;width:12px;height:12px;border-radius:50%;
+  border:3px solid var(--blue-l);opacity:0;animation:ping 2.8s cubic-bezier(0,.2,.8,1) infinite;pointer-events:none}
+.tl .y{font-size:13px;font-weight:600;color:var(--blue-l)}
+.tl .t{font-size:15.5px;font-weight:600;margin:2px 0 4px}
+.tl .d{font-size:14px;color:#4b5563;margin:0}
+
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+  border-radius:12px;overflow:hidden;font-size:14px}
+th,td{padding:13px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f0f2f5;font-weight:600;width:130px;white-space:nowrap}
+tr:last-child td,tr:last-child th{border-bottom:none}
+.tn{border:none}
+.tn th,.tn td{padding:8px 0;border:none;background:none}
+@media(max-width:640px){th{width:96px}}
+
+.cbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px}
+.cbox h3{margin:0 0 4px;font-size:16px;font-weight:600}
+.cbox .r{font-size:14px;color:#4b5563;margin-bottom:10px}
+.cbox .r b{color:var(--ink);font-weight:600}
+form .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fld{margin-bottom:14px}
+.fld label{display:block;font-size:13.5px;margin-bottom:6px;color:#374151}
+.fld input,.fld textarea,.fld select{width:100%;padding:10px 12px;border:1px solid var(--line);
+  border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+.fld input:focus,.fld textarea:focus,.fld select:focus{outline:none;border-color:var(--blue-l)}
+.fld textarea{min-height:110px;resize:vertical}
+@media(max-width:640px){form .row{grid-template-columns:1fr}}
+.msg{display:none;margin-top:12px;padding:10px 14px;border-radius:8px;
+  background:#e7f7ef;border:1px solid #a7dfc4;color:#0f6e56;font-size:14px}
+.msg.err{background:#fdecea;border-color:#f5b7b1;color:#a32d2d}
+.fld.bad input,.fld.bad textarea{border-color:#e24b4a;background:#fffafa}
+.fld .err{display:none;margin-top:6px;font-size:12.5px;color:#a32d2d}
+.fld.bad .err{display:block}
+.fld .hint{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+.fld .hint b{font-weight:400}
+.fld .hint b.over{color:#a32d2d}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn-g{background:#fff;border:1px solid var(--line);color:#374151;font-weight:400}
+.btn-g:hover{background:#f0f2f5}
+.btnrow .editing{font-size:13px;color:var(--blue-l)}
+.mlist{margin-top:16px}
+.mitem{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.mitem .mh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.mitem .mn{font-size:15px;font-weight:600}
+.mitem .mt{font-size:12px;color:var(--muted)}
+.mitem .mb{font-size:13.5px;color:#4b5563;margin:6px 0 10px;white-space:pre-wrap}
+.mitem .ma{display:flex;gap:8px}
+.mitem .ma button{border:1px solid var(--line);background:#fff;border-radius:7px;
+  padding:5px 14px;font-size:13px;cursor:pointer;color:#374151;font-family:inherit}
+.mitem .ma button:hover{background:#f0f2f5;color:var(--blue-d)}
+.mitem .ma button.del:hover{background:#fdecea;color:#a32d2d;border-color:#f5b7b1}
+.mitem.on{border-color:var(--blue-l);box-shadow:0 0 0 3px #eff5ff}
+.mempty{font-size:13.5px;color:var(--muted);margin-top:12px}
+.case{display:flex;flex-direction:column}
+.case .cno{font-size:12px;font-weight:600;letter-spacing:1px;color:var(--blue-l);margin-bottom:8px}
+.case .ctag{display:inline-block;font-size:12px;padding:3px 10px;border-radius:20px;
+  background:#eff5ff;color:var(--blue-l);margin:0 6px 8px 0}
+.case h3{margin:0 0 12px;font-size:17px}
+.case .cmeta{display:grid;grid-template-columns:1fr;gap:6px;margin-bottom:12px;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0}
+.case .cmeta div{display:flex;gap:10px;font-size:13.5px;align-items:baseline}
+.case .cmeta span{color:var(--muted);flex:none;width:60px}
+.case .cmeta b{font-weight:600;color:var(--ink)}
+.case .cmeta b.amt{color:var(--blue-d);font-size:15px}
+.case .csrc{margin-top:auto;padding-top:12px;font-size:12px;color:var(--muted);
+  border-top:1px dashed var(--line)}
+
+.cta{color:#fff;text-align:center;padding:60px 0;position:relative;overflow:hidden;
+  background:#13265e}
+.cta>.wrap{position:relative;z-index:3}
+.cta::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:44px 44px}
+.cta::after{content:"";position:absolute;top:0;bottom:0;left:0;width:300%;z-index:1;pointer-events:none;
+  background:linear-gradient(120deg,#13265e,#1e3a8a,#2563eb,#1e40af);
+  will-change:transform;animation:gradmove 16s ease-in-out infinite alternate}
+.cta h2{margin:0 0 10px;font-size:26px;font-weight:600}
+.cta p{margin:0 0 24px;opacity:.9;font-size:15px}
+
+.scr{background:linear-gradient(135deg,#0b1a3c 0%,#13265e 50%,#1e3a8a 100%);color:#fff;padding:64px 0;position:relative;overflow:hidden}
+.scr::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:44px 44px}
+.scr .wrap{position:relative;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.scr .stxt{flex:1 1 460px}
+.scr .k{font-size:12.5px;letter-spacing:2px;color:#8ab4f8;font-weight:600}
+.scr h2{font-size:26px;margin:8px 0 12px;font-weight:600}
+.scr p{font-size:14.5px;opacity:.88;margin:0 0 16px;max-width:600px}
+.scr .pl{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:22px}
+.scr .pl div{border-left:2px solid rgba(255,255,255,.3);padding-left:12px}
+.scr .pl b{display:block;font-size:17px;font-weight:600}
+.scr .pl span{font-size:12.5px;opacity:.75}
+.btn-w{background:#f59e0b;color:#3b2606;font-weight:600}
+.btn-w:hover{background:#fbbf24}
+.pill{display:inline-block;font-size:12px;padding:4px 12px;border-radius:20px;
+  background:rgba(245,158,11,.18);border:1px solid rgba(245,158,11,.5);color:#fbbf24;margin-left:10px}
+.scrmock{flex:0 1 320px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
+  border-radius:12px;padding:16px;min-width:280px}
+.scrmock .mh{display:flex;justify-content:space-between;font-size:12px;opacity:.7;margin-bottom:12px}
+.scrmock .mb{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.scrmock .cell{background:rgba(255,255,255,.07);border-radius:8px;padding:14px;text-align:center}
+.scrmock .cell b{display:block;font-size:19px;font-weight:600;color:#8ab4f8}
+.scrmock .cell span{font-size:11.5px;opacity:.7}
+.scrmock .wide{grid-column:1 / -1;background:rgba(255,255,255,.07);border-radius:8px;
+  padding:14px;text-align:center;font-size:12.5px;opacity:.75;margin-top:2px}
+@media(max-width:860px){.scr h2{font-size:22px}.scrmock{flex:1 1 100%}}
+
+footer{background:#141a2e;color:#c3cad8;padding:44px 0 24px;font-size:13.5px}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:28px}
+footer h4{color:#fff;font-size:14.5px;margin:0 0 12px;font-weight:600}
+footer p,footer li{color:#c3cad8;margin:0 0 8px}
+footer ul{list-style:none;padding:0;margin:0}
+footer a:hover{color:#fff}
+.fbot{border-top:1px solid #26304d;margin-top:30px;padding-top:18px;color:#8b95ab;font-size:12.5px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media(max-width:860px){.fgrid{grid-template-columns:1fr 1fr}}
+
+/* ============ 视觉增强层（克制版动效） ============ */
+.hero::before,.sub-hero::before{content:"";position:absolute;inset:-60px;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:48px 48px;will-change:transform;
+  animation:gridmove 30s linear infinite}
+.hero::after,.sub-hero::after{content:"";position:absolute;left:-8%;right:-8%;top:-55%;height:170%;
+  background:radial-gradient(ellipse at 50% 45%,rgba(96,165,250,.22),transparent 62%);pointer-events:none}
+.hfx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.hfx span{position:absolute;display:block;border-radius:50%;will-change:transform}
+.hfx span:nth-child(1){width:430px;height:430px;left:-70px;top:-140px;
+  background:radial-gradient(circle,rgba(56,189,248,.32),transparent 68%);
+  animation:halo1 24s ease-in-out infinite alternate}
+.hfx span:nth-child(2){width:540px;height:540px;right:-130px;bottom:-270px;
+  background:radial-gradient(circle,rgba(129,140,248,.30),transparent 70%);
+  animation:halo2 30s ease-in-out infinite alternate}
+.hero .lead{animation:up .7s cubic-bezier(.22,.61,.36,1) both}
+.hero h1{animation:up .7s .06s cubic-bezier(.22,.61,.36,1) both}
+.hero p{animation:up .7s .14s cubic-bezier(.22,.61,.36,1) both}
+.hero .btn{animation:up .7s .22s cubic-bezier(.22,.61,.36,1) both}
+.hero .btn:nth-of-type(2){animation-delay:.30s}
+.hero .btn:nth-of-type(3){animation-delay:.38s}
+.hero .btn:hover{animation:none;transform:translateY(-1px)}
+.hero-in .btn + .btn{margin-left:10px}
+.scr .btn + .btn{margin-left:10px}
+.hero-stats div{animation:up .8s .46s cubic-bezier(.22,.61,.36,1) both}
+
+/* 首屏右侧：空间数据环（缓慢转动，纯线条，不抢内容） */
+.hero>.wrap,.sub-hero>.wrap{position:relative;z-index:3}
+.hero>.wrap{display:grid;grid-template-columns:1.08fr .92fr;gap:28px;align-items:center}
+.hero-stats{grid-column:1 / -1}
+.hero-vis{animation:up 1s .34s cubic-bezier(.22,.61,.36,1) both}
+.hero-vis svg{width:100%;max-width:340px;height:auto;display:block;margin:0 auto}
+.hero-vis .spin{transform-origin:160px 160px;animation:spin 26s linear infinite}
+.hero-vis .spin2{transform-origin:160px 160px;animation:spin 19s linear infinite reverse}
+.hero-vis .core{transform-origin:160px 160px;animation:softpulse 2.8s ease-in-out infinite}
+.hero-vis .core2{transform-origin:160px 160px;animation:ping2 3.4s ease-out infinite}
+@media(max-width:960px){
+  .hero>.wrap{grid-template-columns:1fr}
+  .hero-vis{display:none}
+}
+.sub-hero .lead,.sub-hero h1,.sub-hero p{animation:up .6s cubic-bezier(.22,.61,.36,1) both}
+.sub-hero h1{animation-delay:.06s}
+.sub-hero p{animation-delay:.14s}
+
+/* 大屏入口模拟框：扫描线 */
+.scrmock{position:relative;overflow:hidden}
+.scrmock>*{position:relative;z-index:1}
+.scrmock::after{content:"";position:absolute;left:0;right:0;top:0;height:100%;pointer-events:none;
+  background:linear-gradient(180deg,transparent 0%,rgba(147,197,253,.14) 32%,rgba(147,197,253,.2) 46%,transparent 64%);
+  will-change:transform;animation:scan 5.5s linear infinite}
+.scrmock .cell b{animation:softpulse 3.6s ease-in-out infinite}
+.scrmock .cell:nth-child(2) b{animation-delay:.6s}
+.scrmock .cell:nth-child(3) b{animation-delay:1.2s}
+.scrmock .cell:nth-child(4) b{animation-delay:1.8s}
+
+.tag{transition:background .2s,transform .2s}
+.tag:hover{background:#dfeaff;transform:translateY(-1px)}
+
+/* 入场元素被 .rv 接管后，需抬高 hover 优先级 */
+.js-on .rv.in.card:hover{transform:translateY(-4px)}
+.js-on .rv.in.ch:hover{transform:translateY(-3px)}
+.js-on .rv.in.sc-mod:hover{transform:translateY(-3px)}
+
+/* 回到顶部（带滚动进度环） */
+#tot{position:fixed;right:22px;bottom:26px;width:44px;height:44px;z-index:60;padding:0;
+  display:none;align-items:center;justify-content:center;cursor:pointer;border:none;
+  background:#fff;border-radius:50%;box-shadow:0 6px 18px rgba(20,26,46,.16);
+  transition:transform .2s,box-shadow .2s}
+#tot.show{display:flex;animation:up .32s cubic-bezier(.22,.61,.36,1) both}
+#tot:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(20,26,46,.2)}
+#tot svg{position:absolute;inset:0;width:44px;height:44px}
+#tot span{position:relative;font-size:14px;color:var(--blue-d);line-height:1}
+
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes shine{0%{left:-70%;opacity:0}18%{opacity:1}100%{left:130%;opacity:0}}
+@keyframes navin{from{transform:scaleX(.25);opacity:0}to{transform:scaleX(1);opacity:1}}
+@keyframes ping{0%{transform:scale(1);opacity:.5}70%,100%{transform:scale(2.5);opacity:0}}
+@keyframes gradmove{from{transform:translate3d(0,0,0)}to{transform:translate3d(-66.6667%,0,0)}}
+@keyframes viewin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes gridmove{from{transform:translate3d(0,0,0)}to{transform:translate3d(48px,48px,0)}}
+@keyframes halo1{from{transform:translate(0,0) scale(1)}to{transform:translate(70px,46px) scale(1.14)}}
+@keyframes halo2{from{transform:translate(0,0) scale(1)}to{transform:translate(-56px,-44px) scale(1.1)}}
+@keyframes scan{from{transform:translate3d(0,-100%,0)}to{transform:translate3d(0,100%,0)}}
+@keyframes softpulse{0%,100%{opacity:1}50%{opacity:.72}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes ping2{0%{transform:scale(.55);opacity:.75}70%,100%{transform:scale(1.95);opacity:0}}
+
+/* ============ 数据大屏视图（站内第五个页面） ============ */
+#view-screen{background:radial-gradient(120% 120% at 50% 0%,#1e3a8a 0%,#13265e 45%,#080f24 100%);
+  color:#fff;position:relative;overflow:hidden;padding:56px 0 60px;min-height:calc(100vh - 64px)}
+#view-screen::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:52px 52px}
+.sc-wrap{position:relative;z-index:2;max-width:880px;margin:0 auto;padding:0 20px;width:100%}
+.sc-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.sc-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600}
+.sc-brand i{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  position:relative;flex:none}
+.sc-brand i::after{content:"";position:absolute;inset:0;margin:auto;width:10px;height:10px;
+  border:2px solid #fff;border-radius:3px;transform:rotate(45deg)}
+.sc-h1{font-size:30px;margin:0 0 12px;font-weight:600;line-height:1.35}
+.sc-sub{font-size:15px;opacity:.85;margin:0 0 26px;max-width:620px;line-height:1.75}
+.sc-cd{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+.sc-cd div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:10px;
+  padding:14px 22px;text-align:center;min-width:96px}
+.sc-cd b{display:block;font-size:28px;font-weight:600;color:#8ab4f8;line-height:1.2}
+.sc-cd span{font-size:12px;opacity:.7}
+.sc-mods{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:30px}
+.sc-mod{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:16px;
+  transition:transform .22s cubic-bezier(.22,.61,.36,1),border-color .22s,background .22s}
+.sc-mod:hover{transform:translateY(-3px);border-color:rgba(147,197,253,.5);background:rgba(255,255,255,.09)}
+.sc-mod .n{font-size:11.5px;letter-spacing:1px;color:#8ab4f8;font-weight:600}
+.sc-mod .t{font-size:14.5px;font-weight:600;margin:6px 0 4px}
+.sc-mod .d{font-size:12.5px;opacity:.7;margin:0;line-height:1.6}
+.sc-btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.sc-note{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);
+  font-size:12.5px;opacity:.6;line-height:1.7}
+html[data-theme="dark"] #view-screen{background:radial-gradient(120% 120% at 50% 0%,#16255e 0%,#0b1738 45%,#050914 100%)}
+
+/* ============ 暗色主题 ============ */
+html[data-theme="dark"]{
+  --blue:#3b82f6; --blue-d:#93c5fd; --blue-l:#60a5fa;
+  --ink:#e7ebf3; --muted:#99a3b8; --line:#2a3350;
+  --bg:#0c1120; --card:#151c2f;
+}
+html[data-theme="dark"] body{background:var(--bg);color:var(--ink)}
+html[data-theme="dark"] .hd{background:rgba(12,17,32,.96);border-bottom-color:var(--line)}
+html[data-theme="dark"] .hd.scrolled{background:rgba(12,17,32,.98);box-shadow:0 4px 20px rgba(0,0,0,.4)}
+html[data-theme="dark"] nav a{color:#c6cede}
+html[data-theme="dark"] nav a:hover{background:rgba(255,255,255,.07);color:#fff}
+html[data-theme="dark"] nav a.on{background:rgba(37,99,235,.22);color:#93c5fd}
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .ch,
+html[data-theme="dark"] .cbox,
+html[data-theme="dark"] .mitem,
+html[data-theme="dark"] table{background:var(--card);border-color:var(--line)}
+html[data-theme="dark"] .card p,html[data-theme="dark"] .card ul,html[data-theme="dark"] .card li,
+html[data-theme="dark"] .tl .d,html[data-theme="dark"] .mitem .mb,html[data-theme="dark"] .cbox .r{color:#a9b3c7}
+html[data-theme="dark"] .card:hover{border-color:#3a4870;box-shadow:0 12px 28px rgba(0,0,0,.42)}
+html[data-theme="dark"] .ch:hover{border-color:#3a4870;box-shadow:0 10px 22px rgba(0,0,0,.38)}
+html[data-theme="dark"] .white{background:#111829;border-color:var(--line)}
+html[data-theme="dark"] th{background:#1b2338;border-bottom-color:var(--line)}
+html[data-theme="dark"] td{border-bottom-color:var(--line)}
+html[data-theme="dark"] .tag{background:rgba(37,99,235,.20);color:#93c5fd}
+html[data-theme="dark"] .tag:hover{background:rgba(37,99,235,.32)}
+html[data-theme="dark"] .tl{border-left-color:#2c3654}
+html[data-theme="dark"] .tl .it::before{background:var(--card);border-color:var(--blue-l)}
+html[data-theme="dark"] .fld label{color:#c6cede}
+html[data-theme="dark"] .fld input,html[data-theme="dark"] .fld textarea,html[data-theme="dark"] .fld select{
+  background:#101728;border-color:var(--line);color:var(--ink)}
+html[data-theme="dark"] .fld.bad input,html[data-theme="dark"] .fld.bad textarea{background:#2a1620;border-color:#e24b4a}
+html[data-theme="dark"] .fld .err{color:#f2a5a0}
+html[data-theme="dark"] .msg{background:rgba(16,94,72,.32);border-color:#2f7a63;color:#8fe0c2}
+html[data-theme="dark"] .msg.err{background:rgba(140,40,40,.28);border-color:#8a4340;color:#f2a5a0}
+html[data-theme="dark"] .btn-g,html[data-theme="dark"] .mitem .ma button{background:#1a2135;color:#c6cede;border-color:var(--line)}
+html[data-theme="dark"] .btn-g:hover,html[data-theme="dark"] .mitem .ma button:hover{background:#242d46;color:#fff}
+html[data-theme="dark"] .mitem .ma button.del:hover{background:#3a1d22;color:#f2a5a0;border-color:#5f2c32}
+html[data-theme="dark"] .btn-s{background:#e9eef8;color:#16306e}
+html[data-theme="dark"] .btn-s:hover{background:#fff}
+html[data-theme="dark"] .btn-o{border-color:rgba(255,255,255,.45)}
+html[data-theme="dark"] .mitem.on{box-shadow:0 0 0 3px rgba(37,99,235,.30)}
+html[data-theme="dark"] .hero{background:linear-gradient(135deg,#08122f 0%,#13265e 55%,#1d4ed8 100%)}
+html[data-theme="dark"] .sub-hero{background:linear-gradient(135deg,#08122f 0%,#13265e 55%,#1d4ed8 100%)}
+html[data-theme="dark"] .sec-h h2,
+html[data-theme="dark"] .card h3,html[data-theme="dark"] .mitem .mn{color:#f2f5fa}
+html[data-theme="dark"] footer{background:#080c16}
+html[data-theme="dark"] .fbot{border-top-color:#1e263c}
+html[data-theme="dark"] #tot{background:#1a2135;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+html[data-theme="dark"] #tot span{color:#93c5fd}
+html[data-theme="dark"] #tot .ringbg{stroke:#2b3550}
+
+/* 主题切换按钮 */
+.theme-btn{width:36px;height:36px;flex:none;margin-left:6px;display:flex;align-items:center;justify-content:center;
+  background:transparent;border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  color:#4b5563;transition:background .2s,border-color .2s,color .2s}
+.theme-btn:hover{background:#f0f2f5;color:var(--blue-d)}
+.theme-btn svg{width:18px;height:18px;display:block}
+.theme-btn .i-sun{display:none}
+html[data-theme="dark"] .theme-btn{color:#c6cede}
+html[data-theme="dark"] .theme-btn:hover{background:#242d46;color:#fff}
+html[data-theme="dark"] .theme-btn .i-sun{display:block}
+html[data-theme="dark"] .theme-btn .i-moon{display:none}
+
+/* 主题切换时的柔和过渡 */
+body{transition:background-color .3s,color .3s}
+table,th,.cbox,.mitem{transition:background-color .3s,border-color .3s,color .3s}
+
+/* ============ 三屏适配：桌面 ≥1025 / 平板 641–1024 / 手机 ≤640 ============ */
+
+/* ---- 平板（含横屏 iPad）---- */
+@media (min-width:641px) and (max-width:1024px){
+  .wrap{padding:0 18px}
+  section{padding:52px 0}
+  .hero{padding:60px 0 52px}
+  .hero>.wrap{grid-template-columns:1fr}
+  .hero-vis{display:none}
+  .hero h1{font-size:30px}
+  .hero-stats{grid-template-columns:repeat(3,1fr);margin-top:36px}
+  .sub-hero{padding:46px 0 40px}
+  .sub-hero h1{font-size:27px}
+  .grid3{grid-template-columns:repeat(2,1fr)}
+  .grid2{grid-template-columns:repeat(2,1fr)}
+  .chain{grid-template-columns:repeat(2,1fr)}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .scr .wrap{gap:26px}
+  .scrmock{flex:1 1 100%;max-width:460px;margin:0 auto}
+  .sc-mods{grid-template-columns:repeat(2,1fr)}
+  .sec-h h2{font-size:24px}
+}
+
+/* ---- 手机 ---- */
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  section{padding:42px 0}
+  .sec-h{margin-bottom:26px}
+  .sec-h h2{font-size:21px}
+  .sec-h p{font-size:13.5px}
+
+  .hero{padding:48px 0 40px}
+  .hero h1{font-size:24px;line-height:1.4}
+  .hero p{font-size:14.5px;margin-bottom:22px}
+  .hero .lead{font-size:12px;letter-spacing:2px;margin-bottom:12px}
+  .hero-in .btn{display:block;width:100%;text-align:center;padding:12px 20px;margin:0 0 10px}
+  .hero-in .btn + .btn{margin-left:0}
+  .hero-stats{grid-template-columns:repeat(2,1fr);gap:12px;margin-top:28px}
+  .hero-stats div{padding-left:11px}
+  .hero-stats b{font-size:21px}
+  .sub-hero{padding:38px 0 32px}
+  .sub-hero h1{font-size:21px}
+
+  .grid3,.grid2,.chain{grid-template-columns:1fr;gap:14px}
+  .card{padding:20px}
+  .card h3{font-size:16px}
+  .cbox{padding:18px}
+  .fgrid{grid-template-columns:1fr;gap:20px}
+
+  th,td{padding:10px 12px;font-size:13.5px}
+  th{width:86px;white-space:normal}
+  form .row{grid-template-columns:1fr;gap:0}
+  .fld textarea{min-height:96px}
+
+  .scr{padding:42px 0}
+  .scr h2{font-size:21px}
+  .scr .pl{gap:16px}
+  .scr .btn{margin:0 8px 10px 0}
+  .scr .btn + .btn{margin-left:0}
+  .scrmock{padding:14px;min-width:0}
+  .cta{padding:42px 0}
+  .cta h2{font-size:21px}
+
+  .mitem .mh{flex-direction:column;gap:2px;align-items:flex-start}
+  #view-screen{padding:40px 0 44px}
+  .sc-h1{font-size:22px}
+  .sc-sub{font-size:14px;margin-bottom:20px}
+  .sc-cd{gap:10px;margin-bottom:22px}
+  .sc-cd div{flex:1;min-width:0;padding:12px 8px}
+  .sc-cd b{font-size:23px}
+  .sc-mods{grid-template-columns:1fr;gap:10px}
+  .sc-btns .btn{flex:1 1 auto;text-align:center}
+  .fbot{flex-direction:column;gap:6px}
+  footer{padding:32px 0 20px}
+  #tot{right:14px;bottom:16px;width:40px;height:40px}
+  #tot svg{width:40px;height:40px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;
+    transition-duration:.001s !important;will-change:auto !important}
+  .js-on .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="hd">
+  <div class="wrap">
+    <a href="#/home" class="logo"><i></i><span>华地空间<small>HUADI SPATIAL</small></span></a>
+    <button class="burger" aria-label="菜单">☰</button>
+    <nav>
+      <a data-view="home">首页</a>
+      <a data-view="about">关于我们</a>
+      <a data-view="business">业务介绍</a>
+      <a data-view="contact">联系我们</a>
+      <a data-view="screen">数据大屏</a>
+    </nav>
+    <button id="themeBtn" class="theme-btn" type="button" aria-label="切换深色模式" title="切换深色模式">
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20.5 14.8A8.6 8.6 0 0 1 9.2 3.5a8.7 8.7 0 1 0 11.3 11.3z"></path>
+      </svg>
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2"></circle>
+        <path d="M12 2.6v2.3M12 19.1v2.3M2.6 12h2.3M19.1 12h2.3M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ 首页 ============ -->
+<div class="view" id="view-home">
+  <div class="hero">
+    <div class="hfx" aria-hidden="true"><span></span><span></span></div>
+    <div class="wrap">
+      <div class="hero-in">
+        <div class="lead">跨界融合 · 臻心服务 · 智汇数据 · 赋能管理</div>
+        <h1>数据科技，价值赋能</h1>
+        <p>不动产服务和咨询顾问机构。致力于土地、楼宇等不动产实现最优价值，帮助客户分析城乡空间资源的价值提升和匹配效率等复杂问题，也帮助我们改善自身所生活的空间。</p>
+        <a class="btn btn-s" data-go="business">了解业务</a>
+        <a class="btn btn-o" data-go="contact">联系我们</a>
+        <a class="btn btn-w" data-go="screen">查看大屏 Demo</a>
+      </div>
+      <div class="hero-vis" aria-hidden="true">
+        <svg viewBox="0 0 320 320">
+          <defs>
+            <linearGradient id="hvgrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#93c5fd"></stop>
+              <stop offset="1" stop-color="#38bdf8"></stop>
+            </linearGradient>
+          </defs>
+          <path d="M160 24 V296 M24 160 H296" stroke="rgba(255,255,255,.06)" stroke-width="1"></path>
+          <circle cx="160" cy="160" r="140" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="1"></circle>
+          <circle cx="160" cy="160" r="112" fill="none" stroke="rgba(255,255,255,.13)" stroke-width="1" stroke-dasharray="3 9"></circle>
+          <circle cx="160" cy="160" r="78" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1"></circle>
+          <g class="spin">
+            <circle cx="160" cy="160" r="126" fill="none" stroke="url(#hvgrad)" stroke-width="2"
+              stroke-dasharray="72 520" stroke-linecap="round" opacity=".8"></circle>
+          </g>
+          <g class="spin2">
+            <circle cx="160" cy="160" r="94" fill="none" stroke="#7dd3fc" stroke-width="1.6"
+              stroke-dasharray="30 560" stroke-linecap="round" opacity=".55"></circle>
+            <circle cx="160" cy="66" r="3.5" fill="#bfdbfe"></circle>
+          </g>
+          <circle class="core2" cx="160" cy="160" r="20" fill="none" stroke="rgba(147,197,253,.55)" stroke-width="1"></circle>
+          <circle class="core" cx="160" cy="160" r="7" fill="#a5d8fd"></circle>
+        </svg>
+      </div>
+      <div class="hero-stats">
+        <div><b data-count="156" data-suffix="W+">0</b><span>企业数据</span></div>
+        <div><b data-count="98" data-suffix="T">0</b><span>地理数据</span></div>
+        <div><b data-count="10" data-suffix="W">0</b><span>人口经济数据（近20年）</span></div>
+        <div><b data-count="1564">0</b><span>地块数据</span></div>
+        <div><b data-count="98" data-suffix="W">0</b><span>新房备案数据</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">核心业务</div>
+        <h2>三大业务关键词</h2>
+        <p>从数据采集到数据分析，构建城乡空间资源的完整服务链条</p>
+      </div>
+      <div class="grid3">
+        <div class="card">
+          <div class="no">KEYWORD 01</div>
+          <h3>国土空间数据服务</h3>
+          <p>基于自然资源部"数据驱动智慧规划"原则，提供数据管理、空间数据分析、数据可视化、专题图件制作等专业服务。</p>
+          <ul>
+            <li>地形测量 · 用地边界确认</li>
+            <li>土地报建 · 调查建库</li>
+            <li>国土空间规划编制</li>
+            <li>新能源行业用地技术服务</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="no">KEYWORD 02</div>
+          <h3>土地价值运营与推介</h3>
+          <p>以数据科技实现土地数据采集、资产价值包装、设计运算模型、建立城市数据库，整合地理信息大数据、GIS、传媒领域等技术。</p>
+          <ul>
+            <li>渝地云土地价值传导平台</li>
+            <li>FUN 悦房宝 · 国资处置平台</li>
+            <li>土地推介云平台（H5）</li>
+            <li>线下资产推介交流会</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="no">KEYWORD 03</div>
+          <h3>城市数智招商</h3>
+          <p>多类型、多部门数据运营，定制化分析模型，进行指标计算、统计模型，呈现交互可视化，形成高阶决策信息系统。</p>
+          <ul>
+            <li>招商推介系统 · 多图层招商地图</li>
+            <li>辅助决策系统 · 企业匹配</li>
+            <li>质效管理系统 · 成效监控</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="white">
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">服务链条</div>
+        <h2>采集 · 呈现 · 挖掘 · 分析</h2>
+        <p>一条从数据生产到决策洞察的完整链路</p>
+      </div>
+      <div class="chain">
+        <div class="ch"><b>数据采集</b><span>地形测绘测量服务</span></div>
+        <div class="ch"><b>数据呈现</b><span>不动产招商推介服务</span></div>
+        <div class="ch"><b>数据挖掘</b><span>城市数智招商</span></div>
+        <div class="ch"><b>数据分析</b><span>土地利用咨询</span></div>
+      </div>
+      <div class="grid2" style="margin-top:24px">
+        <div class="card">
+          <h3>为什么选择华地</h3>
+          <p style="margin-bottom:10px">提供专家级的业务洞见、行业定制的算法模型，以及强大的数据平台技术能力。</p>
+          <span class="tag">客户第一</span><span class="tag">数据思维</span><span class="tag">顶尖团队</span>
+          <span class="tag">乙级测绘资质</span><span class="tag">土地规划乙级</span>
+        </div>
+        <div class="card">
+          <h3>服务客户</h3>
+          <p>常年服务于政府规划及土地管理机构，以及新能源、地产等行业企业。累计参与招投标项目 464 次，服务覆盖央企及成员企业、地方国有企业、上市企业、政府机构与学校。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">平台产品</div>
+        <h2>自主研发的数据平台</h2>
+        <p>把多年积累的空间数据资产，变成随手可用的决策工具</p>
+      </div>
+      <div class="grid3">
+        <div class="card">
+          <div class="no">PRODUCT</div>
+          <h3>渝地云 APP</h3>
+          <p>全国首个土地投拓数据解决方案。整合土地、房地产、人口、经济、配套、地图等多样化数据，实现土地价值实时测算引擎。</p>
+          <ul><li>土拍日历 · 招拍挂推送</li><li>10 年成交历史数据</li><li>成交一张图</li></ul>
+        </div>
+        <div class="card">
+          <div class="no">PRODUCT</div>
+          <h3>FUN 悦房宝</h3>
+          <p>重庆首个国有资产处置和招商信息发布平台，汇聚超 1000 万方待处置存量不动产信息，涵盖商铺、写字楼、厂房和住宅。</p>
+          <ul><li>一站式免费发布</li><li>资产价值挖掘</li><li>供需双方链接</li></ul>
+        </div>
+        <div class="card">
+          <div class="no">PRODUCT</div>
+          <h3>投资云地图</h3>
+          <p>与成都睿合泰共建的成渝双城 SAAS 平台。政府端"土地画像系统"精准供地匹配，企业端"投拓决策引擎"支撑投资可行性分析。</p>
+          <ul><li>土地 / 新房市场全覆盖</li><li>地块价值评估</li><li>竞争格局模拟</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="scr">
+    <div class="wrap">
+      <div class="stxt">
+        <div class="k">DATA SCREEN</div>
+        <h2>数据可视化大屏<span class="pill">Demo 建设中</span></h2>
+        <p>把土地推介、招商地图、成交一张图、资产处置进度装进一块屏。实时对接渝地云数据库，供决策领导一屏掌握区域空间资源全貌。</p>
+        <div class="pl">
+          <div><b>1,564</b><span>在库地块</span></div>
+          <div><b>98 T</b><span>地理数据</span></div>
+          <div><b>98 万</b><span>新房备案</span></div>
+        </div>
+        <a class="btn btn-w" data-go="screen">查看大屏 Demo</a>
+        <a class="btn btn-o" data-go="business">先了解业务</a>
+      </div>
+      <div class="scrmock">
+        <div class="mh"><span>区域空间资源监测大屏</span><span>· · ·</span></div>
+        <div class="mb">
+          <div class="cell"><b>1,564</b><span>地块总数</span></div>
+          <div class="cell"><b>1,507</b><span>年度推介</span></div>
+          <div class="cell"><b>1,000 万㎡</b><span>待处置资产</span></div>
+          <div class="cell"><b>156 万</b><span>企业数据</span></div>
+        </div>
+        <div class="wide">招商地图 · 成交一张图 · 资产处置进度</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 关于我们 ============ -->
+<div class="view" id="view-about">
+  <div class="sub-hero">
+    <div class="wrap">
+      <div class="lead">ABOUT US</div>
+      <h1>关于我们</h1>
+      <p>以地理信息数据应用为核心的高新技术企业，深耕国土空间规划领域，致力于成为区域空间资源大数据运营服务商。</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">公司概况</div>
+        <h2>我们是谁</h2>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h3>企业定位</h3>
+          <p>不动产服务和咨询顾问机构。聚焦土地和不动产领域展开技术服务、平台研发、资产运营等全链条服务，常年服务于政府规划及土地管理机构，以及新能源、地产等行业企业。</p>
+          <p style="margin-top:10px">融合规划、地产、金融、传媒等领域人才，构建完整资产运营产品线。</p>
+        </div>
+        <div class="card">
+          <h3>基本档案</h3>
+          <table class="tn">
+            <tr><th>成立日期</th><td>2011 年 4 月 12 日</td></tr>
+            <tr><th>法定代表人</th><td>赵宏伟</td></tr>
+            <tr><th>注册资本</th><td>335.6 万元</td></tr>
+            <tr><th>注册地址</th><td>重庆市两江新区杨柳路 2 号综合研发楼 11 层</td></tr>
+            <tr><th>团队规模</th><td>参保 40–43 人，本科及以上占比 85.3%，高级职称 6 人</td></tr>
+            <tr><th>所属集团</th><td>重庆悦地云企业管理咨询合伙企业（有限合伙）</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="white">
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">MILESTONE</div>
+        <h2>发展历程</h2>
+        <p>从勘测规划设计咨询公司，走向空间资源大数据运营服务商</p>
+      </div>
+      <div class="tl">
+        <div class="it"><div class="y">2011</div><div class="t">公司成立</div><p class="d">前身重庆思普德勘测规划设计咨询有限公司成立，从勘测规划咨询业务起步。</p></div>
+        <div class="it"><div class="y">2018</div><div class="t">搭建土地多维系统 · 获中海达投资</div><p class="d">搭建"土地多维系统"，获上市企业中海达（300177）关联方广州都市圈网络科技有限公司战略投资；同年被评为高新技术企业。</p></div>
+        <div class="it"><div class="y">2020—2022</div><div class="t">连续入选地理信息产业榜单</div><p class="d">2020—2022 年连续入选中国地理信息产业小型企业榜单，获评"2022 地理信息产业最具活力中小企业"。</p></div>
+        <div class="it"><div class="y">2022</div><div class="t">更名并引入战略投资</div><p class="d">正式更名为重庆华地空间科技有限公司，注册资本增至 335.6 万元，成为中海达生态企业。</p></div>
+        <div class="it"><div class="y">2023</div><div class="t">孵化招商工具 · 进军城市研究</div><p class="d">业务延伸至城市研究领域，开发土地推介云平台等信息化产品，孵化土地推介与招商工具。</p></div>
+        <div class="it"><div class="y">2025</div><div class="t">成渝双城战略合作</div><p class="d">与成都睿合泰信息科技达成战略合作，共建"投资云地图"SAAS 平台，实现成渝两地土地、新房、二手房数据全覆盖。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">QUALIFICATION</div>
+        <h2>资质与荣誉</h2>
+      </div>
+      <div class="grid3">
+        <div class="card"><h3>行业资质</h3><ul><li>乙级测绘资质</li><li>土地规划乙级资质</li><li>通用航空企业经营许可证</li><li>国土空间规划编制（许可项）</li></ul></div>
+        <div class="card"><h3>体系认证</h3><ul><li>质量管理体系认证</li><li>环境管理体系认证</li><li>职业健康安全管理体系认证</li><li>知识产权管理体系认证</li></ul></div>
+        <div class="card"><h3>企业荣誉</h3><ul><li>高新技术企业</li><li>重庆市专精特新中小企业</li><li>创新型 / 科技型中小企业</li><li>重庆市中小企业研发中心</li></ul></div>
+      </div>
+      <div class="grid3" style="margin-top:18px">
+        <div class="card"><div class="no">知识产权</div><h3>软著 33 项</h3><p>软件著作权 33 项、专利 16 项（实用新型 6 项、外观 2 项）、注册商标 41 项，历年研发投入占营收 10% 以上。</p></div>
+        <div class="card"><div class="no">项目经验</div><h3>招投标 464 次</h3><p>累计参与招投标项目 464 次，客户覆盖央企及成员企业、地方国有企业、上市企业、政府机构与学校。</p></div>
+        <div class="card"><div class="no">生态</div><h3>中海达生态企业</h3><p>获广州都市圈网络科技有限公司战略投资，成为上市企业中海达（股票代码 300177）生态成员。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="white">
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">CULTURE</div>
+        <h2>我们坚持什么</h2>
+      </div>
+      <div class="grid3">
+        <div class="card"><h3>客户第一</h3><p>价值驱动、问题解决、客户第一，创造问题解决的价值和能力。</p></div>
+        <div class="card"><h3>数据思维</h3><p>抓取数据、分析数据、传播数据，深度挖掘和洞察数据价值。</p></div>
+        <div class="card"><h3>顶尖团队</h3><p>融合规划、地产、金融、传媒等领域人才，构建完整资产运营产品线。</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 业务介绍 ============ -->
+<div class="view" id="view-business">
+  <div class="sub-hero">
+    <div class="wrap">
+      <div class="lead">BUSINESS</div>
+      <h1>业务介绍</h1>
+      <p>以数据为核心，覆盖"采集—呈现—挖掘—分析"全链条的城乡空间资源服务。</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">全景</div>
+        <h2>四大服务板块</h2>
+        <p>每一段都对应一类客户问题，也对应一类数据能力</p>
+      </div>
+      <div class="chain">
+        <div class="ch"><b>数据采集</b><span>地形测绘测量服务</span></div>
+        <div class="ch"><b>数据呈现</b><span>不动产招商推介服务</span></div>
+        <div class="ch"><b>数据挖掘</b><span>城市数智招商</span></div>
+        <div class="ch"><b>数据分析</b><span>土地利用咨询</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="white">
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">01 · 数据采集</div>
+        <h2>地形测绘测量服务</h2>
+        <p>基于自然资源部"数据驱动智慧规划"原则，为企业提供专业的地形测绘测量服务</p>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h3>服务内容</h3>
+          <p>进行数据管理、空间数据分析、数据可视化、专题图件制作，为项目规划、设计和评估提供准确可靠的地理空间数据依据。</p>
+          <ul>
+            <li><b>地形测量</b>——地形图测绘与高程数据采集</li>
+            <li><b>用地边界确认</b>——勘测定界、权属界线核查</li>
+            <li><b>土地报建</b>——用地手续技术支撑</li>
+            <li><b>调查建库</b>——国土调查与数据库建设</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>垂直应用：新能源行业用地技术服务</h3>
+          <p>为风电、光伏等新能源项目提供从选址到落地的技术支持，确保用地合理利用、项目顺利推进。</p>
+          <ul>
+            <li><b>测绘服务</b>：为用地规划、设计、评估提供可靠的地理与空间数据</li>
+            <li><b>用地手续全程办理</b>：帮助客户规避繁琐程序与法规风险，节省时间精力</li>
+          </ul>
+          <span class="tag">乙级测绘资质</span><span class="tag">土地规划乙级</span><span class="tag">通用航空经营许可</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">02 · 数据呈现</div>
+        <h2>不动产招商推介服务</h2>
+        <p>整合地理信息大数据、GIS、传媒领域技术，用于资产处置和信息发布场景</p>
+      </div>
+      <div class="grid2">
+        <div class="card"><div class="no">PLATFORM</div><h3>渝地云 · 土地价值传导平台</h3>
+          <p>全国首个土地投拓数据解决方案。坐拥百万级数据库，获取房价、配套、人口、产业等数据，实现大数据土地价值实时测算引擎。</p>
+          <ul><li>年度出让 / 预公告地块 / 重点推介 / 土拍实况</li><li>区域数据呈现、出让信息汇总、成交一张图</li><li>移动端使用便捷，现场看地全能小助手</li></ul>
+        </div>
+        <div class="card"><div class="no">PLATFORM</div><h3>FUN 悦房宝</h3>
+          <p>重庆首个国有资产处置和招商信息发布平台。通过资产信息价值挖掘，链接供需双方，实现资产有效交易。</p>
+          <ul><li>一站式、免费、便捷的资产信息发布</li><li>汇聚超 1000 万方待处置存量不动产</li><li>涵盖商铺、写字楼、厂房和住宅</li><li>市场分析、价值评估、项目策划、运营实操能力</li></ul>
+        </div>
+        <div class="card"><div class="no">PLATFORM</div><h3>土地推介云平台</h3>
+          <p>H5 在线推介平台，决策领导直接一键分享。无需繁琐软件下载，点击即可查看推介，后台百万级数据秒速链接。</p>
+          <ul><li>可定制化搭建网页框架</li><li>地块基础信息 + 周边配套信息上传</li><li>专业 GIS 技术实现地块价值表达</li></ul>
+        </div>
+        <div class="card"><div class="no">SERVICE</div><h3>线下资产推介交流会</h3>
+          <p>定制化线下会服解决方案，精准拓客，点对点进行城市宣传和不动产推介。</p>
+          <ul><li>专业活动团队，设计线下推介全流程</li><li>推介现场沉浸式体验</li><li>会后持续跟进，挖掘供需市场真实需求</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="white">
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">03 · 数据挖掘</div>
+        <h2>城市数智招商</h2>
+        <p>数据驱动、决策智能，提供持续性及可增值性的高效率招商</p>
+      </div>
+      <div class="grid3">
+        <div class="card"><div class="no">SYSTEM</div><h3>招商推介系统</h3>
+          <p>以"空间信息"作为多维度招商价值信息和内容组织核心，以"多图层叠加"招商地图为主要形态的招商推介信息化解决方案。</p>
+          <ul><li>便捷、实时、在线的支撑服务工具体系</li></ul>
+        </div>
+        <div class="card"><div class="no">SYSTEM</div><h3>辅助决策系统</h3>
+          <p>提升产业招商的信息情报分析与决策能力，围绕产业链引导、企业匹配、谈判辅助等应用场景。</p>
+          <ul><li>定制化分析模型</li><li>指标计算与统计</li><li>交互可视化呈现</li></ul>
+        </div>
+        <div class="card"><div class="no">SYSTEM</div><h3>质效管理系统</h3>
+          <p>提升招商工作效率，完善招商工作推进调度机制。</p>
+          <ul><li>过程管理留痕</li><li>工作及时调度</li><li>成效实时监控</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">04 · 数据分析</div>
+        <h2>土地利用咨询</h2>
+        <p>多维度数据钻取和联动，进行宏观微观判断与分析，提供专家级业务洞见</p>
+      </div>
+      <div class="grid3">
+        <div class="card"><h3>土地利用复杂问题研究</h3><p>针对土地利用中的复杂问题开展专题研究，提供土地价值评估及运营测算服务。</p></div>
+        <div class="card"><h3>产业发展分析研究</h3><p>结合产业数据与空间数据，研判区域产业发展趋势与承载力。</p></div>
+        <div class="card"><h3>国有闲置资产盘活</h3><p>面向存量国有闲置资产，提供盘活路径研究与运营方案设计。</p></div>
+      </div>
+      <div class="grid2" style="margin-top:24px">
+        <div class="card"><h3>服务对象</h3>
+          <ul><li>规划和自然资源局、农业农村委</li><li>园区管委会、土地储备单位</li><li>用地单位、新能源企业</li><li>地产投资与开发企业</li></ul>
+        </div>
+        <div class="card"><h3>交付方式</h3>
+          <ul><li>技术服务成果（测绘成果、数据库、专题图件）</li><li>平台与系统（SaaS、H5、移动端 APP）</li><li>咨询报告（研究、评估、策划方案）</li><li>运营服务（推介会、资产运营）</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="white">
+    <div class="wrap">
+      <div class="sec-h">
+        <div class="k">CASE STUDIES</div>
+        <h2>典型项目案例</h2>
+        <p>以下案例均来自公共资源交易平台公开的中标（成交）公告，金额与业主信息可溯源核对</p>
+      </div>
+      <div class="grid2">
+
+        <div class="card case">
+          <div class="cno">CASE 01</div>
+          <span class="ctag">大屏可视化</span><span class="ctag">不动产咨询</span>
+          <h3>大渡口区国有资产包装推介</h3>
+          <div class="cmeta">
+            <div><span>业主单位</span><b>重庆市大渡口区土地整理储备中心</b></div>
+            <div><span>公告时间</span><b>2026 年 9 月</b></div>
+            <div><span>中标金额</span><b class="amt">94.98 万元</b></div>
+          </div>
+          <p>服务标准要求完成大渡口区国有资产<b>招商可视化推介成果</b>，并于社群及媒体渠道发布；合同签订之日起 15 日内完成建设内容并提交成果。</p>
+          <div class="csrc">来源：重庆市公共资源交易中心 中标（成交）结果公告　项目号 DDK26C00177</div>
+        </div>
+
+        <div class="card case">
+          <div class="cno">CASE 02</div>
+          <span class="ctag">不动产咨询</span><span class="ctag">土地推介</span>
+          <h3>重庆高新区 2025 年房地产用地招商推介</h3>
+          <div class="cmeta">
+            <div><span>业主单位</span><b>重庆高新开发建设投资集团有限公司</b></div>
+            <div><span>中选时间</span><b>2025 年 5 月</b></div>
+            <div><span>中选金额</span><b class="amt">85.96 万元</b></div>
+          </div>
+          <p>承担高新区年度房地产用地招商推介工作，服务内容包括宣传设计与商务服务，项目限价 90 万元、总价包干，对应公司"土地推介云平台 + 线下推介会"的不动产运营能力。</p>
+          <div class="csrc">来源：重庆市网上中介超市 中选公告　编号 500298MA5U5GY272505260874</div>
+        </div>
+
+        <div class="card case">
+          <div class="cno">CASE 03</div>
+          <span class="ctag">土地规划</span><span class="ctag">调查建库</span>
+          <h3>城口县 2024 年度国土变更调查服务</h3>
+          <div class="cmeta">
+            <div><span>业主单位</span><b>重庆市城口县规划和自然资源局</b></div>
+            <div><span>公告时间</span><b>2025 年 10 月</b></div>
+            <div><span>成交金额</span><b class="amt">105.00 万元</b></div>
+          </div>
+          <p>在 2023 年度国土变更调查成果基础上，通过区级实地调查及市级、国家级核查，全面掌握 2024 年度全区地类、面积、属性及相关图层变化，更新国土调查数据库，夯实"统一底图、统一标准、统一规划、统一平台"基础。</p>
+          <div class="csrc">来源：中国政府采购网 中标（成交）结果公告　项目号 CKX25C00185</div>
+        </div>
+
+        <div class="card case">
+          <div class="cno">CASE 04</div>
+          <span class="ctag">土地规划</span><span class="ctag">综合整治</span>
+          <h3>福泉市 2025 年土地综合整治项目（第三批）</h3>
+          <div class="cmeta">
+            <div><span>招标人</span><b>福泉市自然资源储备开发中心（贵州）</b></div>
+            <div><span>中标时间</span><b>2026 年 1 月</b></div>
+            <div><span>服务周期</span><b class="amt">360 日历天</b></div>
+          </div>
+          <p>以联合体形式承接设计—施工总承包，华地空间承担技术服务部分，后期技术服务费 1498 元/亩；投标资格明确要求"城乡规划（国土空间规划）乙级 + 测绘乙级"资质，是公司跨省复制能力的一次落地。</p>
+          <div class="csrc">来源：全国公共资源交易平台（贵州省·黔南州）中标结果公告　2026-01-05</div>
+        </div>
+
+      </div>
+      <div class="card" style="margin-top:18px;border-left:4px solid var(--orange)">
+        <h3>关于案例数据</h3>
+        <p>以上四个案例的业主、金额、时间、交付要求均摘自公开招标公告原文，未作加工。项目成效类数据（如推介成交额、节约工期等）招标方未公开披露，因此本页不作估算或填充。</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 联系我们 ============ -->
+<div class="view" id="view-contact">
+  <div class="sub-hero">
+    <div class="wrap">
+      <div class="lead">CONTACT</div>
+      <h1>联系我们</h1>
+      <p>无论是政府端供地招商，还是企业端投拓决策，欢迎与我们沟通具体需求。</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="grid3">
+        <div class="cbox">
+          <h3>公司地址</h3>
+          <div class="r">重庆市两江新区（北部新区）杨柳路 2 号<br>综合研发楼 11 层 · 重庆科技大厦</div>
+          <div class="r"><b>邮编</b>　401121</div>
+        </div>
+        <div class="cbox">
+          <h3>联系电话</h3>
+          <div class="r"><b>023-67391557</b></div>
+          <div class="r">工作日 9:00–18:00</div>
+        </div>
+        <div class="cbox">
+          <h3>邮箱与平台</h3>
+          <div class="r"><b>官网</b>　www.hdkj.cq.cn</div>
+          <div class="r"><b>渝地云</b>　www.cqydyun.com</div>
+          <div class="r"><b>微信公众号</b>　思普德</div>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:24px">
+        <div class="cbox">
+          <h3>业务咨询指引</h3>
+          <table class="tn" style="margin-top:10px">
+            <tr><th>测绘与用地</th><td>地形测量、勘测定界、土地报建、调查建库、新能源用地手续</td></tr>
+            <tr><th>土地推介</th><td>渝地云数据服务、FUN 悦房宝资产发布、土地推介云平台、线下推介会</td></tr>
+            <tr><th>数智招商</th><td>招商推介系统、辅助决策系统、质效管理系统建设</td></tr>
+            <tr><th>咨询研究</th><td>土地利用研究、产业发展分析、国有闲置资产盘活</td></tr>
+          </table>
+        </div>
+        <div class="cbox">
+          <h3>在线留言</h3>
+          <p style="font-size:13.5px;color:var(--muted);margin:0 0 14px">带 * 为必填项，填写后我们会在 1 个工作日内与您联系。</p>
+          <form id="contactForm" novalidate>
+            <div class="row">
+              <div class="fld" data-fld="fname">
+                <label for="fname">姓名 *</label>
+                <input id="fname" type="text" placeholder="请输入 2–20 个字的姓名" autocomplete="name">
+                <div class="err">请填写 2–20 个字的姓名（仅支持中文、英文、空格和 ·）</div>
+              </div>
+              <div class="fld" data-fld="fphone">
+                <label for="fphone">电话 *</label>
+                <input id="fphone" type="tel" inputmode="numeric" placeholder="手机号或 023-67391557 格式座机" autocomplete="tel">
+                <div class="err">请填写正确的手机号（1 开头 11 位）或座机（如 023-67391557）</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="fld" data-fld="forg">
+                <label for="forg">单位名称（选填）</label>
+                <input id="forg" type="text" placeholder="请输入单位名称" autocomplete="organization">
+              </div>
+              <div class="fld" data-fld="ftype">
+                <label for="ftype">咨询类型</label>
+                <select id="ftype">
+                  <option>测绘与用地技术服务</option>
+                  <option>土地推介与资产处置</option>
+                  <option>城市数智招商平台</option>
+                  <option>土地利用咨询研究</option>
+                  <option>其他</option>
+                </select>
+              </div>
+            </div>
+            <div class="fld" data-fld="fmsg">
+              <label for="fmsg">留言 *</label>
+              <textarea id="fmsg" placeholder="简要描述您的项目场景与需求，5–500 字"></textarea>
+              <div class="hint"><span class="err">请填写 5–500 字的留言内容</span><b id="fcount">0 / 500</b></div>
+            </div>
+            <div class="btnrow">
+              <button class="btn btn-p" type="submit" id="submitBtn">提交留言</button>
+              <button class="btn btn-g" type="button" id="cancelBtn" style="display:none">取消编辑</button>
+              <span class="editing" id="editTip" style="display:none">正在编辑一条已提交的留言</span>
+            </div>
+            <div class="msg" id="formMsg"></div>
+          </form>
+          <div class="mlist" id="mlist"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:24px;border-left:4px solid var(--orange)">
+        <h3>温馨提示</h3>
+        <p>本站点为业务理解演示用途，页面内容整理自公开信息，表单不会真实提交数据。如需与重庆华地空间科技有限公司取得联系，请以官网 www.hdkj.cq.cn 公布的联系方式为准。</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 数据大屏 ============ -->
+<div class="view" id="view-screen">
+  <div class="sc-wrap">
+    <div class="sc-top">
+      <div class="sc-brand"><i></i><span>华地空间 · 数据可视化大屏</span></div>
+      <span class="pill">Demo 建设中 · 占位页</span>
+    </div>
+
+    <h1 class="sc-h1">区域空间资源监测大屏</h1>
+    <p class="sc-sub">本页为大屏 Demo 的占位入口。完整的可视化大屏将于近期上线，届时将实时呈现土地推介、招商地图、成交一张图与国有资产处置进度，供决策领导一屏掌握区域空间资源全貌。</p>
+
+    <div class="sc-cd">
+      <div><b id="cd1">--</b><span>天</span></div>
+      <div><b id="cd2">--</b><span>时</span></div>
+      <div><b id="cd3">--</b><span>分</span></div>
+      <div><b id="cd4">--</b><span>秒</span></div>
+    </div>
+
+    <div class="sc-mods">
+      <div class="sc-mod">
+        <div class="n">MODULE 01</div>
+        <div class="t">土地推介一张图</div>
+        <p class="d">年度出让、预公告地块、重点推介与土拍实况的空间分布与联动钻取。</p>
+      </div>
+      <div class="sc-mod">
+        <div class="n">MODULE 02</div>
+        <div class="t">招商地图</div>
+        <p class="d">以多图层叠加呈现产业链、企业匹配与谈判辅助信息，支撑招商决策。</p>
+      </div>
+      <div class="sc-mod">
+        <div class="n">MODULE 03</div>
+        <div class="t">成交监测</div>
+        <p class="d">成交楼面价、容积率、建筑面积的历史走势与城市发展态势分析。</p>
+      </div>
+      <div class="sc-mod">
+        <div class="n">MODULE 04</div>
+        <div class="t">资产处置进度</div>
+        <p class="d">待处置存量不动产的去化进度、类型结构与区域分布看板。</p>
+      </div>
+      <div class="sc-mod">
+        <div class="n">MODULE 05</div>
+        <div class="t">人口经济</div>
+        <p class="d">近 20 年人口、产业、配套数据与地块的叠加分析。</p>
+      </div>
+      <div class="sc-mod">
+        <div class="n">MODULE 06</div>
+        <div class="t">指标预警</div>
+        <p class="d">供地节奏、市场风险与招商质效的阈值预警推送。</p>
+      </div>
+    </div>
+
+    <div class="sc-btns">
+      <a class="btn btn-w" data-go="business">返回 · 了解业务</a>
+      <a class="btn btn-o" data-go="home">回到首页</a>
+    </div>
+
+    <div class="sc-note">
+      大屏 Demo 计划上线时间 <b>2026-09-28</b>，倒计时如上。大屏开发完成后本页内容将被正式版替换。<br>
+      站内数据（1,564 地块 / 98 T 地理数据 / 98 万新房备案）引自官网公开披露，仅作版式占位示意。
+    </div>
+  </div>
+</div>
+
+</main>
+
+<div class="cta">
+  <div class="wrap">
+    <h2>让空间资源实现最优价值</h2>
+    <p>无论是政府端供地招商，还是企业端投拓决策，我们都能提供数据支撑</p>
+    <a class="btn btn-s" data-go="contact">获取方案咨询</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4>重庆华地空间科技有限公司</h4>
+        <p>成立于 2011 年，定位城乡土地和资产运营服务机构，聚焦土地和不动产领域展开技术服务、平台研发、资产运营等全链条服务。</p>
+        <p>高新技术企业 · 专精特新中小企业 · 科技型中小企业</p>
+      </div>
+      <div>
+        <h4>站内导航</h4>
+        <ul>
+          <li><a data-go="home">首页</a></li>
+          <li><a data-go="about">关于我们</a></li>
+          <li><a data-go="business">业务介绍</a></li>
+          <li><a data-go="contact">联系我们</a></li>
+          <li><a data-go="screen">数据大屏</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>业务</h4>
+        <ul>
+          <li>国土空间数据服务</li>
+          <li>土地价值运营与推介</li>
+          <li>城市数智招商</li>
+          <li>土地利用咨询</li>
+        </ul>
+      </div>
+      <div>
+        <h4>联系</h4>
+        <p>重庆市两江新区杨柳路 2 号<br>综合研发楼 11 层</p>
+        <p>023-67391557</p>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 重庆华地空间科技有限公司　渝ICP备18011317号</span>
+      <span>本页面为业务理解演示站点，内容整理自公开信息</span>
+    </div>
+  </div>
+</footer>
+
+<button id="tot" aria-label="回到顶部" title="回到顶部">
+  <svg viewBox="0 0 44 44" aria-hidden="true">
+    <circle class="ringbg" cx="22" cy="22" r="19" fill="none" stroke="#e3e6ea" stroke-width="2.5"></circle>
+    <circle id="totRing" cx="22" cy="22" r="19" fill="none" stroke="#2563eb" stroke-width="2.5"
+      stroke-linecap="round" stroke-dasharray="119.38" stroke-dashoffset="119.38"
+      transform="rotate(-90 22 22)"></circle>
+  </svg>
+  <span>↑</span>
+</button>
+
+<script>
+(function () {
+  var VIEWS = ['home', 'about', 'business', 'contact', 'screen'];
+
+  /* ========== 主题切换（记住选择） ========== */
+  var THEME_KEY = 'huadi_theme';
+  var themeBtn = document.getElementById('themeBtn');
+
+  function isDark() { return document.documentElement.getAttribute('data-theme') === 'dark'; }
+
+  function paint(t) {
+    var dark = t === 'dark';
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if (themeBtn) {
+      var tip = dark ? '切换浅色模式' : '切换深色模式';
+      themeBtn.setAttribute('aria-label', tip);
+      themeBtn.setAttribute('title', tip);
+    }
+  }
+
+  function saved() {
+    try {
+      var v = localStorage.getItem(THEME_KEY);
+      return (v === 'dark' || v === 'light') ? v : null;
+    } catch (e) { return null; }
+  }
+
+  paint(isDark() ? 'dark' : 'light');
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      var next = isDark() ? 'light' : 'dark';
+      paint(next);
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+    });
+  }
+
+  /* 用户从未手动选择过时，跟随系统 */
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    var onSys = function (e) { if (!saved()) paint(e.matches ? 'dark' : 'light'); };
+    if (mq.addEventListener) mq.addEventListener('change', onSys);
+    else if (mq.addListener) mq.addListener(onSys);
+  }
+
+  /* ========== 大屏倒计时（仅在大屏页可见时运行，离开即停） ========== */
+  var cdTimer = null;
+  function stopCountdown() { if (cdTimer) { clearTimeout(cdTimer); cdTimer = null; } }
+  function startCountdown() {
+    stopCountdown();
+    var target = new Date(2026, 8, 28, 10, 0, 0);
+    var ids = ['cd1', 'cd2', 'cd3', 'cd4'];
+    var els = [];
+    for (var i = 0; i < ids.length; i++) els.push(document.getElementById(ids[i]));
+    if (!els[0]) return;
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+    function tick() {
+      var ms = target - Date.now();
+      if (ms < 0) {
+        els[0].textContent = '0'; els[1].textContent = '00';
+        els[2].textContent = '00'; els[3].textContent = '00';
+        cdTimer = null;
+        return;
+      }
+      var s = Math.floor(ms / 1000);
+      els[0].textContent = Math.floor(s / 86400);
+      els[1].textContent = pad(Math.floor((s % 86400) / 3600));
+      els[2].textContent = pad(Math.floor((s % 3600) / 60));
+      els[3].textContent = pad(s % 60);
+      /* 对齐到下一个整秒，避免长时间运行后累计漂移 */
+      cdTimer = setTimeout(tick, 1000 - (Date.now() % 1000));
+    }
+    tick();
+  }
+  /* 标签页切到后台时不空转 */
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stopCountdown();
+    else if (current() === 'screen') startCountdown();
+  });
+
+  /* ========== 动效基础 ========== */
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var REVEAL_SEL = '.sec-h, .card, .ch, .tl .it, .cbox, table, .scrmock, .sc-mod';
+  document.documentElement.classList.add('js-on');
+
+  var io = null;
+  if (!reduce && 'IntersectionObserver' in window) {
+    io = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          entries[i].target.classList.add('in');
+          io.unobserve(entries[i].target);
+        }
+      }
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+  }
+
+  /* 给区块元素挂上入场标记，同组按顺序错开出场 */
+  function refreshReveal(scope) {
+    if (!scope) return;
+    var els = scope.querySelectorAll(REVEAL_SEL);
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (el.classList.contains('rv')) continue;
+      el.classList.add('rv');
+      if (!io) { el.classList.add('in'); continue; }
+      var p = el.parentNode || scope;
+      var n = parseInt(p.getAttribute('data-rc') || '0', 10);
+      p.setAttribute('data-rc', String(n + 1));
+      el.style.transitionDelay = Math.min(n, 5) * 70 + 'ms';
+      io.observe(el);
+    }
+  }
+
+  /* 滚动进度条 / 顶栏投影 / 回到顶部按钮 */
+  var hd = document.querySelector('.hd');
+  var tot = document.getElementById('tot');
+  var totRing = document.getElementById('totRing');
+  var CIRC = 119.38;
+  var ticking = false;
+  var maxScroll = 1;
+
+  /* 页面高度只在尺寸变化时测量：滚动中读 scrollHeight 会强制重排，是掉帧主因 */
+  function measure() {
+    maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+  }
+
+  function onScroll() {
+    ticking = false;
+    var top = window.pageYOffset || 0;
+    var p = Math.min(top / maxScroll, 1);
+    if (hd) {
+      hd.style.setProperty('--p', (p * 100).toFixed(1) + '%');
+      hd.classList.toggle('scrolled', top > 8);
+    }
+    if (tot) {
+      tot.classList.toggle('show', top > 320);
+      if (totRing) totRing.setAttribute('stroke-dashoffset', (CIRC * (1 - p)).toFixed(1));
+    }
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+
+  var rzTimer = null;
+  window.addEventListener('resize', function () {
+    measure();
+    if (rzTimer) clearTimeout(rzTimer);
+    rzTimer = setTimeout(onScroll, 80);
+  });
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(measure).observe(document.body); } catch (e) {}
+  }
+  measure();
+  if (tot) {
+    tot.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  }
+
+  var navLinks = document.querySelectorAll('nav a[data-view]');
+  var nav = document.querySelector('nav');
+  var burger = document.querySelector('.burger');
+
+  function current() {
+    var h = (location.hash || '').replace('#/', '');
+    return VIEWS.indexOf(h) > -1 ? h : 'home';
+  }
+
+  var runToken = 0;
+  function animate(scope) {
+    var tk = ++runToken;
+    var nums = scope.querySelectorAll('[data-count]');
+    for (var i = 0; i < nums.length; i++) {
+      var el = nums[i];
+      if (el.getAttribute('data-done')) continue;
+      el.setAttribute('data-done', '1');
+      (function (el) {
+        var target = parseFloat(el.getAttribute('data-count'));
+        var dec = parseInt(el.getAttribute('data-dec') || '0', 10);
+        var suffix = el.getAttribute('data-suffix') || '';
+        var start = null, dur = 1100;
+        function step(ts) {
+          if (tk !== runToken) return;
+          if (!start) start = ts;
+          var p = Math.min((ts - start) / dur, 1);
+          el.textContent = (target * (1 - Math.pow(1 - p, 3))).toFixed(dec) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      })(el);
+    }
+  }
+
+  function show(name) {
+    for (var i = 0; i < VIEWS.length; i++) {
+      var v = document.getElementById('view-' + VIEWS[i]);
+      if (v) v.classList.toggle('active', VIEWS[i] === name);
+    }
+    for (var j = 0; j < navLinks.length; j++) {
+      navLinks[j].classList.toggle('on', navLinks[j].getAttribute('data-view') === name);
+    }
+    document.title = ({
+      home: '华地空间 | 城乡空间资源大数据运营服务商',
+      about: '关于我们 | 华地空间',
+      business: '业务介绍 | 华地空间',
+      contact: '联系我们 | 华地空间',
+      screen: '数据大屏 Demo | 华地空间'
+    })[name];
+    var scope = document.getElementById('view-' + name);
+    if (scope) { animate(scope); refreshReveal(scope); }
+    window.scrollTo(0, 0);
+    measure();
+    onScroll();
+    if (name === 'screen') startCountdown(); else stopCountdown();
+    if (nav) nav.classList.remove('open');
+  }
+
+  function go(name) {
+    if (location.hash === '#/' + name) { show(name); return; }
+    location.hash = '#/' + name;
+  }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-go],[data-view],[data-href]') : null;
+    if (t) {
+      e.preventDefault();
+      var name = t.getAttribute('data-go') || t.getAttribute('data-view');
+      if (name && VIEWS.indexOf(name) > -1) go(name);
+    }
+    /* 点击菜单外部时收起移动端导航 */
+    if (nav && nav.classList.contains('open') &&
+        !nav.contains(e.target) && !(burger && burger.contains(e.target))) {
+      nav.classList.remove('open');
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if ((e.key === 'Escape' || e.key === 'Esc') && nav) nav.classList.remove('open');
+  });
+
+  if (burger && nav) {
+    burger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      nav.classList.toggle('open');
+    });
+  }
+
+  window.addEventListener('hashchange', function () { show(current()); });
+
+  var form = document.getElementById('contactForm');
+  if (form) {
+    var RE_NAME = /^[一-龥a-zA-Z][一-龥a-zA-Z·\s]{0,18}[一-龥a-zA-Z]$/;
+    var RE_PHONE = /^(1[3-9]\d{9}|0\d{2,3}-?\d{7,8})$/;
+    var STORE = 'huadi_messages_v1';
+    var editingId = null;
+
+    var $ = function (id) { return document.getElementById(id); };
+    var box = $('formMsg');
+    var submitBtn = $('submitBtn');
+    var cancelBtn = $('cancelBtn');
+    var editTip = $('editTip');
+    var fcount = $('fcount');
+
+    function wrap(id) { return document.querySelector('[data-fld="' + id + '"]'); }
+
+    function setErr(id, bad) {
+      var w = wrap(id);
+      if (w) w.classList.toggle('bad', !!bad);
+    }
+
+    function check(id, silent) {
+      var el = $(id);
+      var v = el.value.trim();
+      var ok = true;
+      if (id === 'fname') ok = RE_NAME.test(v);
+      else if (id === 'fphone') ok = RE_PHONE.test(v.replace(/\s/g, ''));
+      else if (id === 'fmsg') ok = v.length >= 5 && v.length <= 500;
+      if (!silent) setErr(id, !ok);
+      return ok;
+    }
+
+    function updateCount() {
+      var n = $('fmsg').value.trim().length;
+      if (fcount) {
+        fcount.textContent = n + ' / 500';
+        fcount.classList.toggle('over', n > 500);
+      }
+    }
+
+    ['fname', 'fphone', 'fmsg'].forEach(function (id) {
+      var el = $(id);
+      el.addEventListener('blur', function () { if (el.value.trim()) check(id); });
+      el.addEventListener('input', function () {
+        setErr(id, false);
+        if (id === 'fmsg') updateCount();
+      });
+    });
+    $('fphone').addEventListener('input', function (e) {
+      e.target.value = e.target.value.replace(/[^\d-]/g, '');
+    });
+
+    var MAX_KEEP = 60;
+    function load() {
+      try {
+        var v = JSON.parse(localStorage.getItem(STORE) || '[]');
+        return Object.prototype.toString.call(v) === '[object Array]' ? v : [];
+      } catch (e) { return []; }
+    }
+    function save(list) {
+      /* 只保留最近若干条，避免长期累积后读写变慢 */
+      if (!list || list.length > MAX_KEEP) list = (list || []).slice(Math.max(0, (list || []).length - MAX_KEEP));
+      try { localStorage.setItem(STORE, JSON.stringify(list)); } catch (e) {}
+    }
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function fmt(ts) {
+      var d = new Date(ts);
+      var p = function (n) { return n < 10 ? '0' + n : '' + n; };
+      return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) +
+        ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+    }
+
+    function render() {
+      var list = load();
+      var box2 = $('mlist');
+      if (!box2) return;
+      if (!list.length) {
+        box2.innerHTML = '<div class="mempty">还没有留言记录。提交后可以在这里编辑或删除。</div>';
+        return;
+      }
+      var html = '<div class="mempty" style="margin-bottom:10px">已提交 ' + list.length + ' 条留言（保存在本机浏览器，可编辑 / 删除）</div>';
+      list.slice().reverse().forEach(function (m) {
+        html += '<div class="mitem' + (m.id === editingId ? ' on' : '') + '">' +
+          '<div class="mh"><span class="mn">' + esc(m.name) + '　' + esc(m.phone) + '</span>' +
+          '<span class="mt">' + esc(m.type) + ' · ' + fmt(m.time) + (m.id === editingId ? ' · 编辑中' : '') + '</span></div>' +
+          (m.org ? '<div class="mt" style="margin-top:2px">单位：' + esc(m.org) + '</div>' : '') +
+          '<div class="mb">' + esc(m.msg) + '</div>' +
+          '<div class="ma"><button data-act="edit" data-id="' + m.id + '">编辑</button>' +
+          '<button class="del" data-act="del" data-id="' + m.id + '">删除</button></div></div>';
+      });
+      box2.innerHTML = html;
+    }
+
+    function resetForm() {
+      form.reset();
+      ['fname', 'fphone', 'fmsg'].forEach(function (id) { setErr(id, false); });
+      updateCount();
+      editingId = null;
+      submitBtn.textContent = '提交留言';
+      cancelBtn.style.display = 'none';
+      editTip.style.display = 'none';
+    }
+
+    function setSelect(id, val) {
+      var sel = $(id), opts = sel.options;
+      for (var i = 0; i < opts.length; i++) {
+        if (opts[i].value === val) { sel.value = val; return; }
+      }
+      sel.selectedIndex = 0;
+    }
+
+    function startEdit(id) {
+      var m = load().filter(function (x) { return x.id === id; })[0];
+      if (!m) return;
+      editingId = id;
+      $('fname').value = m.name;
+      $('fphone').value = m.phone;
+      $('forg').value = m.org || '';
+      setSelect('ftype', m.type);
+      $('fmsg').value = m.msg;
+      ['fname', 'fphone', 'fmsg'].forEach(function (i) { setErr(i, false); });
+      updateCount();
+      submitBtn.textContent = '保存修改';
+      cancelBtn.style.display = '';
+      editTip.style.display = '';
+      render();
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      $('fname').focus();
+    }
+
+    $('mlist').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button[data-act]') : null;
+      if (!b) return;
+      var id = b.getAttribute('data-id');
+      var act = b.getAttribute('data-act');
+      if (act === 'edit') { startEdit(id); return; }
+      if (act === 'del') {
+        if (!confirm('确定删除这条留言？')) return;
+        save(load().filter(function (x) { return x.id !== id; }));
+        if (editingId === id) resetForm();
+        render();
+        box.className = 'msg';
+        box.textContent = '已删除该条留言。';
+        box.style.display = 'block';
+      }
+    });
+
+    cancelBtn.addEventListener('click', function () {
+      resetForm();
+      render();
+      box.className = 'msg';
+      box.textContent = '已取消编辑，表单已清空。';
+      box.style.display = 'block';
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var ids = ['fname', 'fphone', 'fmsg'];
+      var bad = null;
+      ids.forEach(function (id) { if (!check(id)) { if (!bad) bad = id; } });
+      if (bad) {
+        box.className = 'msg err';
+        box.textContent = '请检查标红的字段后再提交。';
+        box.style.display = 'block';
+        $(bad).focus();
+        return;
+      }
+      var data = {
+        name: $('fname').value.trim(),
+        phone: $('fphone').value.trim(),
+        org: $('forg').value.trim(),
+        type: $('ftype').value,
+        msg: $('fmsg').value.trim()
+      };
+      var list = load();
+      if (editingId) {
+        list = list.map(function (x) {
+          return x.id === editingId ? {
+            id: x.id, name: data.name, phone: data.phone, org: data.org,
+            type: data.type, msg: data.msg, time: Date.now()
+          } : x;
+        });
+      } else {
+        list.push({
+          id: 'm' + Date.now(), name: data.name, phone: data.phone, org: data.org,
+          type: data.type, msg: data.msg, time: Date.now()
+        });
+      }
+      save(list);
+      box.className = 'msg';
+      box.textContent = editingId ? '修改已保存，' + data.name + '。' : '已收到，' + data.name + '。我们会在 1 个工作日内与您联系（示例站点，未真实提交）。';
+      box.style.display = 'block';
+      resetForm();
+      render();
+    });
+
+    updateCount();
+    render();
+  }
+
+  show(current());
+})();
+</script>
+</body>
+</html>
