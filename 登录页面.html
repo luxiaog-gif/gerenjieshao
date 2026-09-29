@@ -1160,13 +1160,29 @@
       .contact-form { grid-template-columns: 1fr; }
       .home-footer { padding: 24px 24px 18px; }
     }
+  
+    /* --- 图片骨架占位：加载中不出现空白块 --- */
+    .biz-banner, .about-banner, .products-hero,
+    .biz-gallery-fig, .biz-mini-fig, .product-logo-fig {
+      background: linear-gradient(100deg, #eef1f5 30%, #e3e8ef 50%, #eef1f5 70%);
+      background-size: 220% 100%;
+      animation: sk 1.4s ease-in-out infinite;
+    }
+    @keyframes sk { 0% { background-position: 120% 0 } 100% { background-position: -20% 0 } }
+    @media (prefers-reduced-motion: reduce) {
+      .biz-banner, .about-banner, .products-hero,
+      .biz-gallery-fig, .biz-mini-fig, .product-logo-fig { animation: none; }
+    }
+    .biz-banner img, .about-banner img, .products-hero img,
+    .biz-gallery-fig img, .biz-mini-fig img, .product-logo-fig img { position: relative; }
   </style>
 </head>
 <body>
   <!-- 启动遮罩：Vue 挂载后自动淡出移除 -->
   <div id="boot" aria-hidden="true"><div class="boot-ring"></div></div>
   <noscript>
-    <style>#boot { display: none; }</style>
+    <style>#boot { display: none; }
+  </style>
     <p style="color:#fff;text-align:center;padding:24px;">需要启用 JavaScript 才能使用本页面</p>
   </noscript>
 
@@ -1304,7 +1320,7 @@
         <div class="biz-dialog-body" v-if="bizDetail">
           <!-- 顶部官方截图 banner -->
           <figure class="biz-banner" v-if="bizDetail.banner">
-            <img :src="bizDetail.banner" :alt="bizDetail.bannerCaption" loading="lazy" />
+            <img :src="bizDetail.banner" :alt="bizDetail.bannerCaption" loading="lazy" decoding="async" style="aspect-ratio: 8 / 17;" />
             <figcaption>{{ bizDetail.bannerCaption }}</figcaption>
           </figure>
 
@@ -1324,17 +1340,17 @@
           <div class="biz-product-grid">
             <div class="biz-product-card" v-for="(p, i) in bizDetail.products" :key="i">
               <div class="biz-product-head">
-                <img v-if="p.logo" :src="p.logo" :alt="p.name + ' logo'" class="biz-product-logo" loading="lazy" />
+                <img v-if="p.logo" :src="p.logo" :alt="p.name + ' logo'" class="biz-product-logo" loading="lazy" decoding="async" />
                 <h5 class="biz-product-name">{{ p.name }}</h5>
               </div>
               <p class="biz-product-desc">{{ p.desc }}</p>
               <div class="biz-product-extra" v-if="p.qrcode || p.app">
                 <figure v-if="p.qrcode" class="biz-mini-fig">
-                  <img :src="p.qrcode" alt="小程序码" loading="lazy" />
+                  <img :src="p.qrcode" alt="小程序码" loading="lazy" decoding="async" />
                   <figcaption>小程序</figcaption>
                 </figure>
                 <figure v-if="p.app" class="biz-mini-fig">
-                  <img :src="p.app" alt="应用图" loading="lazy" />
+                  <img :src="p.app" alt="应用图" loading="lazy" decoding="async" />
                   <figcaption>App 应用图</figcaption>
                 </figure>
               </div>
@@ -1360,7 +1376,7 @@
             <h4 class="biz-block-title">真实界面</h4>
             <div class="biz-gallery-grid">
               <figure v-for="(g, i) in bizDetail.gallery" :key="i" class="biz-gallery-fig">
-                <img :src="g.src" :alt="g.caption" loading="lazy" />
+                <img :src="g.src" :alt="g.caption" loading="lazy" decoding="async" style="aspect-ratio: 9 / 16;" />
                 <figcaption>{{ g.caption }}</figcaption>
               </figure>
             </div>
@@ -1588,7 +1604,7 @@
 
         <section v-else-if="activeNav === 'products'" key="products" class="nav-page products-page">
           <figure class="products-hero reveal">
-            <img src="assets/huadi/官网页面截图/page_business.webp" alt="官网数智招商平台页" loading="lazy" />
+            <img src="assets/huadi/官网页面截图/page_business.webp" alt="官网数智招商平台页" loading="lazy" decoding="async" style="aspect-ratio: 8 / 17;" />
             <figcaption>官网 · 数智招商平台页：多图层招商地图 / 大屏可视化 / 招商名片小程序</figcaption>
           </figure>
 
@@ -1597,7 +1613,7 @@
             <div class="product-grid cols-2">
               <div class="product-card reveal">
                 <div class="product-card-head">
-                  <img class="product-logo" src="assets/huadi/Logo与二维码/FUN悦房宝-logo.webp" alt="FUN悦房宝 logo" loading="lazy" />
+                  <img class="product-logo" src="assets/huadi/Logo与二维码/FUN悦房宝-logo.webp" alt="FUN悦房宝 logo" loading="lazy" decoding="async" />
                   <div>
                     <h3 class="product-name">FUN悦房宝</h3>
                     <span class="product-tag">资产处置 · 招商发布</span>
@@ -1612,7 +1628,7 @@
               </div>
               <div class="product-card reveal delay-1">
                 <div class="product-card-head">
-                  <img class="product-logo" src="assets/huadi/Logo与二维码/渝地云-logo.webp" alt="渝地云 logo" loading="lazy" />
+                  <img class="product-logo" src="assets/huadi/Logo与二维码/渝地云-logo.webp" alt="渝地云 logo" loading="lazy" decoding="async" />
                   <div>
                     <h3 class="product-name">渝地云 · 土地价值传导平台</h3>
                     <span class="product-tag">土地投拓 · 数据测算</span>
@@ -1757,22 +1773,22 @@
               <h3 class="about-card-title">旗下产品</h3>
               <div class="product-logo-row">
                 <figure class="product-logo-fig">
-                  <img src="assets/huadi/Logo与二维码/华地空间-logo.webp" alt="华地空间 logo" loading="lazy" />
+                  <img src="assets/huadi/Logo与二维码/华地空间-logo.webp" alt="华地空间 logo" loading="lazy" decoding="async" />
                   <figcaption>华地空间</figcaption>
                 </figure>
                 <figure class="product-logo-fig">
-                  <img src="assets/huadi/Logo与二维码/渝地云-logo.webp" alt="渝地云 logo" loading="lazy" />
+                  <img src="assets/huadi/Logo与二维码/渝地云-logo.webp" alt="渝地云 logo" loading="lazy" decoding="async" />
                   <figcaption>渝地云</figcaption>
                 </figure>
                 <figure class="product-logo-fig">
-                  <img src="assets/huadi/Logo与二维码/FUN悦房宝-logo.webp" alt="FUN悦房宝 logo" loading="lazy" />
+                  <img src="assets/huadi/Logo与二维码/FUN悦房宝-logo.webp" alt="FUN悦房宝 logo" loading="lazy" decoding="async" />
                   <figcaption>FUN悦房宝</figcaption>
                 </figure>
               </div>
             </div>
           </div>
           <figure class="about-banner reveal delay-3">
-            <img src="assets/huadi/官网页面截图/page_about.webp" alt="官网关于我们页" loading="lazy" />
+            <img src="assets/huadi/官网页面截图/page_about.webp" alt="官网关于我们页" loading="lazy" decoding="async" style="aspect-ratio: 8 / 17;" />
             <figcaption>官网 · 关于我们页：公司历程 2011→2023、荣誉资质、联系方式</figcaption>
           </figure>
         </section>
@@ -2253,5 +2269,22 @@
       hideBoot(); // 挂载完成，淡出启动遮罩
     });
   </script>
+
+  <script>
+  (function () {
+    var LIST = ["assets/huadi/App真实界面-精选/渝地云App界面-01.webp", "assets/huadi/App真实界面-精选/渝地云App界面-02.webp", "assets/huadi/App真实界面-精选/渝地云App界面-03.webp", "assets/huadi/App真实界面-精选/渝地云App界面-04.webp", "assets/huadi/Logo与二维码/FUN悦房宝-logo.webp", "assets/huadi/Logo与二维码/FUN悦房宝-小程序码.webp", "assets/huadi/Logo与二维码/华地空间-logo.webp", "assets/huadi/Logo与二维码/渝地云-logo.webp", "assets/huadi/Logo与二维码/渝地云-应用图.webp", "assets/huadi/官网页面截图/page_about.webp", "assets/huadi/官网页面截图/page_business.webp", "assets/huadi/官网页面截图/page_consult.webp", "assets/huadi/官网页面截图/page_home.webp", "assets/huadi/官网页面截图/page_procedures.webp", "assets/huadi/官网页面截图/page_promotion.webp"];
+    function walk(i) {
+      if (i >= LIST.length) return;
+      var im = new Image();
+      im.onload = im.onerror = function () { setTimeout(function () { walk(i + 1); }, 60); };
+      im.src = LIST[i];
+    }
+    function start() { setTimeout(function () { walk(0); }, 600); }
+    if (document.readyState === 'complete') start();
+    else window.addEventListener('load', start);
+  })();
+  </script>
+
+  
 </body>
 </html>
